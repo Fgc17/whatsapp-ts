@@ -1,0 +1,20 @@
+{
+  "name": "whatsapp-ts",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "tsup src/index.ts src/types.ts --dts --watch",
+    "build": "tsup src/index.ts src/types.ts --dts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.1",
+    "prettier": "3.3.3",
+    "tsup": "^8.3.5",
+    "typescript": "5.6.3"
+  }
+}
