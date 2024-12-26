@@ -10,9 +10,7 @@ export async function send(body: WaSDKSendMessageBody) {
       process.env.WHATSAPP_MESSAGE_NAMESPACE;
   }
 
-  const endpoint = endpoints.sendMessage;
-
-  console.log("sendMessageBody", sendMessageBody);
+  const endpoint = endpoints().message.send;
 
   return await fetch(endpoint.url, {
     method: endpoint.method,
@@ -20,7 +18,17 @@ export async function send(body: WaSDKSendMessageBody) {
     body: JSON.stringify(sendMessageBody),
   })
     .then((res) => res.json())
-    .then((json) => json.data)
+    .then((json) => {
+      if ("error" in json) {
+        throw {
+          response: {
+            data: json.error,
+          },
+        };
+      }
+
+      return json.data;
+    })
     .catch((err) => {
       throw err.response.data;
     });
