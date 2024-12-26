@@ -1,10 +1,10 @@
 import crypto from "crypto";
-import { env } from "env";
 import {
   WhatsappFlowDecryptedBody,
   WhatsappFlowPayload,
   WhatsappFlowWebhookBody,
 } from "graph-api/types/webhooks/flows/webhook";
+import { settings } from "src/settings";
 
 export function decryptFlowBody(
   body: WhatsappFlowWebhookBody
@@ -12,8 +12,8 @@ export function decryptFlowBody(
   const { encrypted_aes_key, encrypted_flow_data, initial_vector } = body;
 
   const privateKey = crypto.createPrivateKey({
-    key: env("WHATSAPP_FLOWS_ENCRYPTION_PRIVATE_KEY"),
-    passphrase: env("WHATSAPP_FLOWS_ENCRYPTION_PASSPHRASE"),
+    key: settings.get("WHATSAPP_FLOWS_ENCRYPTION_PRIVATE_KEY"),
+    passphrase: settings.get("WHATSAPP_FLOWS_ENCRYPTION_PASSPHRASE"),
   });
 
   const decryptedAesKey = crypto.privateDecrypt(

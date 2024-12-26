@@ -1,4 +1,4 @@
-import { env } from "env";
+import { settings } from "src/settings";
 
 export function verifyHub(request: Request) {
   const params = new URL(request.url).searchParams;
@@ -11,7 +11,7 @@ export function verifyHub(request: Request) {
     return false;
   }
 
-  const trustedToken = env("WHATSAPP_WEBHOOK_KEY");
+  const trustedToken = settings.get("WHATSAPP_WEBHOOK_KEY")!;
 
   if (untrustedToken != trustedToken) {
     return false;

@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { env } from "../../env";
+import { settings } from "src/settings";
 
 export type WebhookSignatureChallengeArguments = {
   rawBody: string;
@@ -16,7 +16,7 @@ export async function verifySignature(request: Request, rawBody: string) {
   const untrustedSignature = headerSignature.replace("sha256=", "");
 
   const trustedSignature = crypto
-    .createHmac("sha256", env("WHATSAPP_WEBHOOK_KEY"))
+    .createHmac("sha256", settings.get("WHATSAPP_WEBHOOK_KEY")!)
     .update(rawBody, "utf-8")
     .digest("hex");
 
