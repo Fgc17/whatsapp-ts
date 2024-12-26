@@ -1,11 +1,17 @@
+import * as crud from "./flows/crud";
 import { send } from "./messages/send";
-import { flowsEncryption } from "./upload/flows-encryption/upload";
+import { encryption } from "./waba/upload/encryption";
 
 export const actions = {
   messages: {
     send,
   },
-  upload: {
-    flowsEncryption,
+  flows: {
+    ...crud,
+  },
+  waba: {
+    upload: {
+      encryption,
+    },
   },
 };
