@@ -1,14 +1,14 @@
 import crypto from "crypto";
 import {
-  WhatsappFlowDecryptedBody,
-  WhatsappFlowPayload,
-  WhatsappFlowWebhookBody,
-} from "graph-api/types/webhooks/flows/webhook";
+  WhatsappFlowDecryptedWebhookBody,
+  WhatsappFlowEncryptedWebhookBody,
+} from "graph-api/webhooks/flows/webhook";
+import { WaSDKFlowDecryptedWebhookBody } from "sdk/types";
 import { settings } from "src/settings";
 
 export function decryptFlowBody(
-  body: WhatsappFlowWebhookBody
-): WhatsappFlowDecryptedBody {
+  body: WhatsappFlowEncryptedWebhookBody
+): WaSDKFlowDecryptedWebhookBody {
   const { encrypted_aes_key, encrypted_flow_data, initial_vector } = body;
 
   const privateKey = crypto.createPrivateKey({
@@ -49,7 +49,9 @@ export function decryptFlowBody(
   ]).toString("utf-8");
 
   return {
-    payload: JSON.parse(decryptedJSONString) as WhatsappFlowPayload,
+    payload: JSON.parse(
+      decryptedJSONString
+    ) as WhatsappFlowDecryptedWebhookBody,
     encryptionMetadata: {
       aesKeyBuffer: decryptedAesKey,
       initialVectorBuffer,

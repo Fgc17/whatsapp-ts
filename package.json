@@ -3,25 +3,33 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.0",
+  "version": "1.1.1",
   "type": "module",
   "exports": {
     ".": {
       "import": "./dist/index.cjs"
     }
   },
+  "bin": {
+    "whatsapp": "dist/cmd.cjs"
+  },
   "scripts": {
-    "dev": "tsup src/index.ts src/types.ts --dts --watch",
-    "build": "tsup src/index.ts src/types.ts --dts",
-    "bump": "changeset version",
-    "release": "changeset publish"
+    "dev": "concurrently pnpm:dev:*",
+    "dev:barrel": "barrelgun",
+    "dev:sdk": "tsup src/index.ts src/types.ts --dts --watch",
+    "dev:cli": "tsup src/cmd.ts --watch --silent",
+    "build": "tsup src/index.ts src/types.ts --dts && tsup src/cmd.ts",
+    "bump": "changeset",
+    "release": "changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.11",
     "@types/node": "^22.9.1",
     "prettier": "3.3.3",
     "tsup": "^8.3.5",
-    "typescript": "5.6.3"
+    "typescript": "5.6.3",
+    "barrelgun": "link:../barrelgun",
+    "concurrently": "9.1.1"
   },
   "dependencies": {
     "dotenv": "16.4.7"

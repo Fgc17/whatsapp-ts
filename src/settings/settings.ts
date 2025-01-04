@@ -15,6 +15,8 @@ export type WhatsappSDKSettings = {
   WHATSAPP_FLOWS_ENCRYPTION_PUBLIC_KEY: string;
   WHATSAPP_FLOWS_ENCRYPTION_PRIVATE_KEY: string;
   WHATSAPP_FLOWS_ENCRYPTION_PASSPHRASE: string;
+
+  WHATSAPP_UNNOFICIAL_AUTHENTICATION_STRING: string;
 };
 
 const storage = {} as WhatsappSDKSettings;

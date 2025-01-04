@@ -1,3 +1,4 @@
+import { WaIncomingContactObject } from "graph-api/webhooks/application/fields/messages/values/contacts";
 import { WaOutgoingMessage } from "./message";
 
 export type WhatsappSendMessageRequestConfig = {
@@ -14,3 +15,11 @@ export type WhatsappSendMessageRequestBody<T extends keyof WaOutgoingMessage> =
     type: T;
   } & WhatsappSendMessageRequestConfig &
     Record<T, WaOutgoingMessage[T]>;
+
+export type WhatsappSendMessageResponse = {
+  messaging_product: "whatsapp";
+  contacts: WaIncomingContactObject[];
+  messages: Array<{
+    id: string;
+  }>;
+};

@@ -1,4 +1,4 @@
-import { WhatsappFlowResponse } from "graph-api/types";
+import { WhatsappFlowResponse } from "graph-api/index";
 
 const flowResponse = (flow_token: string, response: WhatsappFlowResponse) => {
   if (!response.data) {

@@ -1,4 +1,4 @@
-import { WaOutgoingTemplateMessage } from "graph-api/types/resources/messages/send/payloads/template";
+import { WaOutgoingTemplateMessage } from "graph-api";
 
 export type WaSDKOutgoingTemplateMessage = Omit<
   WaOutgoingTemplateMessage,

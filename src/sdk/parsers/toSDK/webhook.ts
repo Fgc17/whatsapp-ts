@@ -1,13 +1,13 @@
-import { WhatsappApplicationWebhookBody } from "graph-api/types/webhooks/application/webhook";
-import { WaSDKEvent } from "sdk/types/events/event";
-import { parseMessageReceivedEventToSDK } from "./application/message-received";
 import {
+  WhatsappApplicationWebhookBody,
+  WhatsappFlowEncryptedWebhookBody,
   WhatsappFlowPingResponse,
-  WhatsappFlowWebhookBody,
-} from "graph-api/types/webhooks/flows/webhook";
+} from "graph-api";
 import { decryptFlowBody } from "sdk/security/decrypt-flow-body";
 import { verifyHub } from "sdk/security/verify-hub";
 import { verifySignature } from "sdk/security/verify-signature";
+import { WaSDKEvent } from "sdk/types/events/event";
+import { parseMessageReceivedEventToSDK } from "./application/message-received";
 
 const ensureFilled = (v: any[]) => (v.length ? v : undefined);
 
@@ -32,7 +32,7 @@ export async function webhook(request: Request) {
 
   const body = JSON.parse(rawBody) as
     | WhatsappApplicationWebhookBody
-    | WhatsappFlowWebhookBody;
+    | WhatsappFlowEncryptedWebhookBody;
 
   const isMessageWebhook = "entry" in body;
   if (isMessageWebhook) {

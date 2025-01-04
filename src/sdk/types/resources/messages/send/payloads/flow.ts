@@ -1,4 +1,4 @@
-import { WaInteractiveBase } from "graph-api/types/resources/messages/send/payloads/interactive";
+import { WaInteractiveBase } from "graph-api";
 
 interface FlowPayload {
   screen: string;
@@ -8,7 +8,7 @@ interface FlowPayload {
 interface BaseFlowConfig {
   name: string;
   buttonText: string;
-  token: string;
+  token?: string;
   mode?: "draft" | "published";
 }
 

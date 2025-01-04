@@ -1,22 +1,16 @@
-import { endpoints } from "./graph-api/endpoints";
-import { actions } from "./sdk/actions";
-import { security } from "./sdk/security";
-import { parsers } from "./sdk/parsers";
-import { utils } from "./sdk/utils";
+import { endpoints } from "./graph-api";
 import { settings } from "./settings";
+import { commands } from "./commands";
+import * as sdk from "./sdk";
 
-export * from "./sdk/types";
-export * from "./graph-api/types";
+export * from "./sdk";
+export * from "./graph-api";
 
 export const whatsapp = {
-  sdk: {
-    actions,
-    utils,
-    security,
-    parsers,
-  },
   graph: {
     endpoints,
   },
   settings,
+  sdk,
+  commands,
 };

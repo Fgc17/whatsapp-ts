@@ -1,4 +1,4 @@
-import { WhatsappFlowMediaData } from "graph-api/types";
+import { WhatsappFlowMediaData } from "graph-api/resources/flows/models/flow-media-data";
 import crypto from "node:crypto";
 
 async function fetchMedia(url: string) {

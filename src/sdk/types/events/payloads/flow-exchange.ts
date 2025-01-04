@@ -1,8 +1,16 @@
 import {
-  WhatsappFlowDecryptedBody,
+  WhatsappFlowDecryptedWebhookBody,
+  WhatsappFlowEncryptionData,
   WhatsappFlowPingResponse,
-} from "graph-api/types";
+} from "graph-api/index";
 
-export type WaSDKFlowExchangeEventPayload = WhatsappFlowDecryptedBody & {
+export type WaSDKFlowPayload = WhatsappFlowDecryptedWebhookBody;
+
+export type WaSDKFlowDecryptedWebhookBody = {
+  payload: WaSDKFlowPayload;
+  encryptionMetadata: WhatsappFlowEncryptionData;
+};
+
+export type WaSDKFlowExchangeEventPayload = WaSDKFlowDecryptedWebhookBody & {
   pingResponse: WhatsappFlowPingResponse;
 };

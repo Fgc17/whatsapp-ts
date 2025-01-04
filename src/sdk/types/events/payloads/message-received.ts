@@ -1,4 +1,4 @@
-import { WaIncomingMessageType } from "graph-api/types/webhooks/application/fields/messages/values/messages";
+import { WaIncomingMessageType } from "graph-api/webhooks/application/fields/messages/values/messages";
 
 export interface BaseMessageReceivedEventPayload {
   id: string;

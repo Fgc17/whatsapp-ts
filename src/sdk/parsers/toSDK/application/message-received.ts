@@ -1,4 +1,4 @@
-import { WaIncomingMessages } from "graph-api/types/webhooks/application/fields/messages/values/messages";
+import { WaIncomingMessages } from "graph-api/webhooks/application/fields/messages/values/messages";
 import { WaSDKEventPayload } from "../../../types/events/event";
 import { BaseMessageReceivedEventPayload } from "../../../types/events/payloads/message-received";
 

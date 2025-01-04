@@ -13,12 +13,17 @@ const getName = (token: string) => {
 };
 
 const getParams = (token: string) => {
-  const paramsString = token.split("?")[1];
+  let paramsString = token.split("?")?.[1];
+
+  if (paramsString?.[0] === "&") {
+    paramsString = paramsString.slice(1);
+  }
 
   const params = new URLSearchParams(paramsString);
 
   return {
-    chatId: params.get("chat_id")!,
+    chatId: params.get("chat_id")! || params.get("chatId")!,
+    paramsString,
   };
 };
 

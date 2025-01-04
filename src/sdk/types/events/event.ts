@@ -1,8 +1,8 @@
-import { WaIncomingErrors } from "graph-api/types/webhooks/application/fields/messages/values/errors";
+import { WaIncomingErrors } from "graph-api/webhooks/application/fields/messages/values/errors";
 import {
   WaIncomingIdentityObject,
   WaIncomingSystemObject,
-} from "graph-api/types/webhooks/application/fields/messages/values/messages";
+} from "graph-api/webhooks/application/fields/messages/values/messages";
 import {
   BaseMessageReceivedEventPayload,
   MessageReceivedEventPayload,

@@ -1,21 +1,7 @@
-export type FlowAction = "INIT" | "BACK" | "data_exchange" | "ping";
+import { FlowAction } from "graph-api/resources/flows/models/flow-action";
+import { FlowScreen } from "graph-api/resources/flows/models/flow-screen";
 
-export type FlowScreen = "SUCCESS" | string;
-
-export type WhatsappFlowMediaData = {
-  media_id: string;
-  cdn_url: string;
-  file_name: string;
-  encryption_metadata: {
-    encrypted_hash: string;
-    iv: string;
-    encryption_key: string;
-    hmac_key: string;
-    plaintext_hash: string;
-  };
-};
-
-export interface WhatsappFlowPayload {
+export interface WhatsappFlowDecryptedWebhookBody {
   version: "3.0";
   screen: FlowScreen;
   action: FlowAction;
@@ -39,12 +25,7 @@ export interface WhatsappFlowEncryptionData {
   initialVectorBuffer: Buffer;
 }
 
-export type WhatsappFlowDecryptedBody = {
-  encryptionMetadata: WhatsappFlowEncryptionData;
-  payload: WhatsappFlowPayload;
-};
-
-export interface WhatsappFlowWebhookBody {
+export interface WhatsappFlowEncryptedWebhookBody {
   encrypted_aes_key: string;
   encrypted_flow_data: string;
   initial_vector: string;

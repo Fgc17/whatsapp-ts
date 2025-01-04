@@ -1,4 +1,4 @@
-import { WaInteractiveBase } from "graph-api/types/resources/messages/send/payloads/interactive";
+import { WaInteractiveBase } from "graph-api";
 
 export type WaSDKOutgoingListMessage = Omit<WaInteractiveBase, "type"> & {
   type: "list";

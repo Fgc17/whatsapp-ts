@@ -1,12 +1,11 @@
 import {
-  WhatsappSendMessageRequestBody,
   WhatsappSendMessageRequestConfig,
-} from "graph-api/types/resources/messages/send/request";
+  WhatsappSendMessageRequestBody,
+} from "graph-api";
 import {
   WaSDKSendMessageConfig,
   WaSDKSendMessageBody,
 } from "../../types/resources/messages/send/request";
-import { WaSDKSendMessageData } from "../../types/resources/messages/send/message";
 
 const sendConfig = (
   arg: WaSDKSendMessageConfig
@@ -36,6 +35,10 @@ const flow = (
 
   const parsedSendConfig = sendConfig(base);
 
+  if (!flow.mode) {
+    flow.mode = process.env.NODE_ENV === "production" ? "published" : "draft";
+  }
+
   return {
     type: "interactive",
     ...parsedSendConfig,
@@ -46,11 +49,11 @@ const flow = (
         name: "flow",
         parameters: {
           flow_name: flow.name,
-          flow_token: `${flow.token}?&chat_id=${parsedSendConfig.to}`,
+          flow_token: `${flow.token ?? flow.name}?&chat_id=${parsedSendConfig.to}`,
           flow_message_version: "3",
           flow_cta: flow.buttonText,
           flow_action: flow.action ?? "navigate",
-          mode: flow.mode ?? "published",
+          mode: flow.mode,
           ...(flow.payload && {
             flow_action_payload: {
               ...flow.payload,
@@ -113,6 +116,36 @@ const list = (
   return parsed;
 };
 
+const button = (
+  arg: WaSDKSendMessageBody
+): WhatsappSendMessageRequestBody<"interactive"> => {
+  if (arg.message.type !== "button") throw new Error("Invalid type");
+
+  const { message: interactive, ...base } = arg;
+
+  const { buttons, type, ...interactiveBase } = interactive;
+
+  const parsedSendConfig = sendConfig(base);
+
+  const parsed: WhatsappSendMessageRequestBody<"interactive"> = {
+    ...parsedSendConfig,
+    type: "interactive",
+    interactive: {
+      ...interactiveBase,
+      type,
+      action: {
+        buttons: buttons.map((b) => ({
+          id: b.id,
+          title: b.text,
+          type: "reply",
+        })),
+      },
+    },
+  };
+
+  return parsed;
+};
+
 const template = (
   arg: WaSDKSendMessageBody
 ): WhatsappSendMessageRequestBody<"template"> => {
@@ -136,6 +169,8 @@ const template = (
     },
   };
 
+  parsed.template!.namespace = process.env.WHATSAPP_MESSAGE_NAMESPACE;
+
   return parsed;
 };
 
@@ -143,6 +178,7 @@ const parsers = {
   flow,
   text,
   list,
+  button,
   template,
 };
 

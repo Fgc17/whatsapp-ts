@@ -1,10 +1,10 @@
-import { endpoints } from "graph-api/endpoints";
-import { WhatsappUploadFlowEncryptionRequestBody } from "graph-api/types/resources/upload/flows-encryption/request";
+import { endpoints } from "graph-api/index";
+import { WhatsappWabaUploadEncryptionRequestBody } from "graph-api";
 
 async function uploadWabaEncryption(publicKey: string) {
-  const endpoint = endpoints().waba.updateEncryption;
+  const endpoint = endpoints.waba.updateEncryption;
 
-  const body: WhatsappUploadFlowEncryptionRequestBody = {
+  const body: WhatsappWabaUploadEncryptionRequestBody = {
     business_public_key: publicKey,
   };
 
