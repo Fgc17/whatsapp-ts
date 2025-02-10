@@ -1,26 +1,26 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "Preserve",
-    "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "declaration": true,
-    "declarationDir": "./",
-    "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "strict": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "graph-api": ["./src/graph-api/index.ts"],
-      "graph-api/*": ["./src/graph-api/*"],
-      "sdk/*": ["./src/sdk/*"],
-      "env": ["./src/env.ts"]
-    },
-    "baseUrl": "./",
-    "outDir": "./dist"
-  },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "Preserve",
+		"moduleResolution": "bundler",
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"declaration": true,
+		"declarationDir": "./",
+		"incremental": true,
+		"tsBuildInfoFile": ".tsbuildinfo",
+		"strict": true,
+		"strictNullChecks": true,
+		"forceConsistentCasingInFileNames": true,
+		"useUnknownInCatchVariables": false,
+		"noEmit": true,
+		"paths": {
+			"core": ["src/core/core.ts"],
+			"core/*": ["src/core/*"]
+		},
+		"baseUrl": "./",
+		"outDir": "./dist"
+	},
+	"include": ["./src/**/*.ts"],
+	"exclude": ["node_modules", "dist"]
 }

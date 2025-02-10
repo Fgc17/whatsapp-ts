@@ -1,0 +1,15 @@
+export type ISOCountryCode =
+	| "AU"
+	| "ID"
+	| "IN"
+	| "JP"
+	| "SG"
+	| "KR"
+	| "DE"
+	| "CH"
+	| "GB"
+	| "BR"
+	| "BH"
+	| "ZA"
+	| "AE"
+	| "CA";

@@ -1,37 +1,52 @@
 {
-  "name": "@ferstack/whatsapp-ts",
+  "name": "@gavri/whatsapp",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.1.2",
+  "version": "0.0.1",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/core/core.cjs",
+  "types": "./dist/core/core.d.cts",
   "exports": {
-    ".": {
-      "import": "./dist/index.cjs"
+    ".": "./dist/core/core.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/index.d.cts"
+      ]
     }
   },
   "bin": {
-    "whatsapp": "dist/cmd.cjs"
+    "whatsapp": "./dist/cli/cli.cjs"
   },
   "scripts": {
-    "dev": "concurrently pnpm:dev:*",
-    "dev:barrel": "barrelgun",
-    "dev:sdk": "tsup src/index.ts src/types.ts --dts --watch",
-    "dev:cli": "tsup src/cmd.ts --watch --silent",
-    "build": "tsup src/index.ts src/types.ts --dts && tsup src/cmd.ts",
+    "lint": "biome lint --error-on-warnings",
+    "format": "biome format --write",
+    "build": "rm -rf dist && pnpm tsup",
+    "typecheck": "tsc --noEmit",
+    "-------- dev --------": "--------",
+    "dev:barrelsmith": "barrelsmith --watch",
+    "dev:watch": "pnpm build --watch",
+    "dev": "concurrently --raw pnpm:dev:*",
+    "-------- npm --------": "--------",
     "bump": "changeset",
-    "release": "changeset version && changeset publish"
+    "release": "pnpm build && changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.11",
     "@types/node": "^22.9.1",
-    "prettier": "3.3.3",
+    "barrelsmith": "link:../barrelsmith",
+    "concurrently": "9.1.1",
     "tsup": "^8.3.5",
-    "typescript": "5.6.3",
-    "barrelgun": "link:../barrelgun",
-    "concurrently": "9.1.1"
+    "typescript": "5.6.3"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.9.4",
     "dotenv": "16.4.7"
   }
 }
